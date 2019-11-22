@@ -15,19 +15,19 @@ function setup() {
   filterHTom = new p5.LowPass();
 
   envKick = new p5.Envelope();
-  envKick.setADSR(0, 1, 0, 1)
+  envKick.setADSR(0, 0.8, 0, 1)
   envKick.setRange(1, 0);
 
   envLTom = new p5.Envelope();
-  envLTom.setADSR(0, 0.2, 0, 1);
+  envLTom.setADSR(0, 0.3, 0, 1);
   envLTom.setRange(0.5, 0);
 
   envMTom = new p5.Envelope();
-  envMTom.setADSR(0, 0.2, 0, 1);
+  envMTom.setADSR(0, 0.3, 0, 1);
   envMTom.setRange(0.4, 0);
 
   envHTom = new p5.Envelope();
-  envHTom.setADSR(0, 0.2, 0, 1);
+  envHTom.setADSR(0, 0.3, 0, 1);
   envHTom.setRange(0.3, 0);
 
   envSnare = new p5.Envelope();
@@ -90,32 +90,36 @@ function setup() {
 function draw() {
   background(51) ;
   filterKick.set(2000, 10);
-  filterLTom.set(261, 0);
-  filterMTom.set(329, 0);
-  filterHTom.set(1440, 0);
+  filterLTom.set(261, 10);
+  filterMTom.set(329, 10);
+  filterHTom.set(140, 0);
   filterSnare.set(1440, 5);
 }
 
 function keyPressed() {
 
   if (key === "a" || key === "A") {
+    reverb.process(envKick, 0.05, 1);
     envKick.play();
   }
 
   if (key === "w" || key === "W") {
+    reverb.process(envLTom, 0.2, 1);
     envLTom.play();
   }
 
   if (key === "s" || key === "S") {
+    reverb.process(envMTom, 0.2, 1);
     envMTom.play();
   }
 
   if (key === "e" || key === "E") {
+    reverb.process(envHTom, 0.2, 1);
     envHTom.play();
   }
 
   if (key === "l" || key === "L") {
-    reverb.process(envSnare, 0.5, 0.2);
+    reverb.process(envSnare, 0.2, 1);
     envSnare.play();
   }
 
